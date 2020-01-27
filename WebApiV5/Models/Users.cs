@@ -19,7 +19,7 @@ namespace WebApiV5.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
-        public Nullable<System.DateTime> BirthDate { get; set; }
+        public string BirthDate { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public bool IsEmailVerified { get; set; }

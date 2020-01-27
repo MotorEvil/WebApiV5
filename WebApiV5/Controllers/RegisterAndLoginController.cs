@@ -165,7 +165,7 @@ namespace WebApiV5.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "RegisterAndLogin");
+            return RedirectToAction("Index", "Home");
         }
 
 

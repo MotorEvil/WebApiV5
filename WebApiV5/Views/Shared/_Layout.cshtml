@@ -10,15 +10,16 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div class="container-fluid"> 
-           <div class="navbar-collapse collapse" id="navbarSupportedContent">
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Treniruotes", "Treniruotes", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Klientai", "Klientai", "AspNetUsers", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Klientai", "UsersList", "Users", null, new { @class = "nav-link" })</li>
 
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>

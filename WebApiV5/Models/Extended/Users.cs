@@ -37,9 +37,8 @@ namespace WebApiV5.Models
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Gimimo metai")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode =true, DataFormatString ="{yyyy}")]
-        public Nullable<System.DateTime> BirthDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode =true)]
+        public string BirthDate { get; set; }
 
         [Display(Name ="Telefono numeris")]
         [DataType(DataType.PhoneNumber)]
