@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\zythk\Documents\GitHub\WebApiV5\WebApiV5\Models\DbModels.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\MSI\Documents\GitHub\GitHub-Masters-Praktika-\WebApiV5\WebApiV5\Models\DbModels.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

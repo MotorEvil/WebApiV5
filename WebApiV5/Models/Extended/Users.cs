@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApiV5.Models
 {
-    [MetadataType(typeof(UserMetaData))]
+    
     public partial class Users
     {
         public string ConfirmPassword { get; set; }

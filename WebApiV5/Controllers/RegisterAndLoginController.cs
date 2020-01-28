@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApiV5.Models;
 using System.Web.Security;
+using WebApiV5.Models.ViewModels;
 
 namespace WebApiV5.Controllers
 {
@@ -22,9 +23,17 @@ namespace WebApiV5.Controllers
         //Registration POST action
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registration([Bind(Exclude = "IsEmailVerified, ActivationCode")] Users user)
+        public ActionResult Registration([Bind(Exclude = "IsEmailVerified, ActivationCode")] UserRegistration model)
 
         {
+            var user = new Users() {
+                UserName = model.UserName,
+                Password = model.Password,
+                Email = model.Email,
+                ConfirmPassword = model.ConfirmPassword,
+                ActivationCode = model.ActivationCode,
+                IsEmailVerified = model.IsEmailVerified
+            };
             bool Status = false;
             string message = "";
 
@@ -36,7 +45,7 @@ namespace WebApiV5.Controllers
                 if (isExist)
                 {
                     ModelState.AddModelError("EmailExist", "Email alrerady exist");
-                    return View(user);
+                    return View(model);
                 }
                 #endregion
 
@@ -54,6 +63,7 @@ namespace WebApiV5.Controllers
                 #region Save to DataBAse
                 using (DuomenuBazeEntities db = new DuomenuBazeEntities())
                 {
+
                     db.Users.Add(user);
                     db.SaveChanges();
 
@@ -73,7 +83,7 @@ namespace WebApiV5.Controllers
 
             ViewBag.Message = message;
             ViewBag.Status = Status;
-            return View(user);
+            return View(model);
 
         }
 

@@ -90,6 +90,22 @@
           <EntitySet Name="SignUps" EntityType="Self.SignUps" />
           <EntitySet Name="Treniruotes" EntityType="Self.Treniruotes" />
           <EntitySet Name="Users" EntityType="DuomenuBazeModel.Users" />
+          <AssociationSet Name="TreniruotesUsers" Association="DuomenuBazeModel.TreniruotesUsers">
+            <End Role="Treniruotes" EntitySet="Treniruotes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="RolesUsers" Association="DuomenuBazeModel.RolesUsers">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="TreniruotesSignUps" Association="DuomenuBazeModel.TreniruotesSignUps">
+            <End Role="Treniruotes" EntitySet="Treniruotes" />
+            <End Role="SignUps" EntitySet="SignUps" />
+          </AssociationSet>
+          <AssociationSet Name="SignUpsUsers" Association="DuomenuBazeModel.SignUpsUsers">
+            <End Role="SignUps" EntitySet="SignUps" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Users">
           <Key>
@@ -107,6 +123,22 @@
           <Property Name="ActivationCode" Type="Guid" Nullable="false" />
           <Property Name="Subscriptions" Type="Int32" />
         </EntityType>
+        <Association Name="TreniruotesUsers">
+          <End Type="DuomenuBazeModel.Treniruotes" Role="Treniruotes" Multiplicity="1" />
+          <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="1" />
+        </Association>
+        <Association Name="RolesUsers">
+          <End Type="DuomenuBazeModel.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="1" />
+        </Association>
+        <Association Name="TreniruotesSignUps">
+          <End Type="DuomenuBazeModel.Treniruotes" Role="Treniruotes" Multiplicity="1" />
+          <End Type="DuomenuBazeModel.SignUps" Role="SignUps" Multiplicity="1" />
+        </Association>
+        <Association Name="SignUpsUsers">
+          <End Type="DuomenuBazeModel.SignUps" Role="SignUps" Multiplicity="1" />
+          <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

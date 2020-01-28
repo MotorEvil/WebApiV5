@@ -8,6 +8,9 @@ using System.Net;
 using System.Data.Entity;
 using System.Data;
 using System.Net.Mail;
+using System.Web.Helpers;
+using WebApiV5.Models.ViewModels;
+using Crypto = WebApiV5.Models.ViewModels.Crypto;
 
 namespace WebApiV5.Controllers
 {
@@ -45,8 +48,22 @@ namespace WebApiV5.Controllers
         // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserName,FirstName,LastName,Password,ConfirmPassword,BirthDate,PhoneNumber,Email,Subscriptions", Exclude = "IsEmailVerified, ActivationCode")]Users users)
+        public ActionResult Create([Bind(Exclude = "IsEmailVerified, ActivationCode")] CreateViewModel model)
         {
+            var user = new Users()
+            {
+                UserName = model.UserName,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Password = model.Password,
+                Email = model.Email,
+                BirthDate = model.BirthDate,
+                PhoneNumber = model.PhoneNumber,
+                ConfirmPassword = model.ConfirmPassword,
+                ActivationCode = model.ActivationCode,
+                IsEmailVerified = model.IsEmailVerified,
+                Subscriptions = model.Subscriptions
+            };
             bool Status = false;
             string message = "";
 
@@ -54,31 +71,31 @@ namespace WebApiV5.Controllers
             if (ModelState.IsValid)
             {
                 #region Email is already exist
-                var isExist = IsEmailExist(users.Email);
+                var isExist = IsEmailExist(user.Email);
                 if (isExist)
                 {
                     ModelState.AddModelError("EmailExist", "Email alrerady exist");
-                    return View(users);
+                    return View(model);
                 }
                 #endregion
 
                 #region Generate Activation Code
-                users.ActivationCode = Guid.NewGuid();
+                user.ActivationCode = Guid.NewGuid();
                 #endregion
 
                 #region Password hashing
-                users.Password = Crypto.Hash(users.Password);
-                users.ConfirmPassword = Crypto.Hash(users.ConfirmPassword);
+                user.Password = Crypto.Hash(user.Password);
+                user.ConfirmPassword = Crypto.Hash(user.ConfirmPassword);
                 #endregion
 
-                users.IsEmailVerified = false;
+                user.IsEmailVerified = false;
 
                 #region Save to DataBAse
-                    db.Users.Add(users);
+                    db.Users.Add(user);
                     db.SaveChanges();
 
                     //Send email to user
-                    SendeVertificationEmail(users.Email, users.ActivationCode.ToString());
+                    SendeVertificationEmail(user.Email, user.ActivationCode.ToString());
                     Status = true;
                 return RedirectToAction("UsersList");
                 #endregion
@@ -91,51 +108,84 @@ namespace WebApiV5.Controllers
 
             ViewBag.Message = message;
             ViewBag.Status = Status;
-            return View(users);
+            return View(model);
         }
 
         // GET: Users/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Users user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
         // POST: Users/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit([Bind(Include ="Id,Subscriptions,UserName,Password,Email,FirstName,LastName,ConfirmPassword,BirthDate,PhoneNumber,IsEmailVerified,ActivationCode")] EditViewModel model)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var user = new Users()
+            {  
+                Id = model.Id,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                ConfirmPassword = model.ConfirmPassword,
+                BirthDate = model.BirthDate,
+                PhoneNumber = model.PhoneNumber,
+                IsEmailVerified = model.IsEmailVerified,
+                ActivationCode = model.ActivationCode,
+                Subscriptions = model.Subscriptions,
+                UserName = model.UserName,
+                Password = model.Password,
+                Email = model.Email
+            };
 
+
+            db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("UsersList");
-            }
-            catch
-            {
-                return View();
-            }
+            
         }
 
         // GET: Users/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Users user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
         }
 
-        // POST: Users/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: AspNetUsers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Users user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("UsersList");
+        }
 
-                return RedirectToAction("UsersList");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
 
         [NonAction]

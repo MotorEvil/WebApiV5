@@ -136,7 +136,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Crypto.cs" />
     <Compile Include="Models\DbModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,10 +161,11 @@
     <Compile Include="Models\Treniruotes.cs">
       <DependentUpon>DbModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\Users.cs">
       <DependentUpon>DbModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\AcountViewModels.cs" />
+    <Compile Include="Models\ViewModels\UsersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +334,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Users\UsersList.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
