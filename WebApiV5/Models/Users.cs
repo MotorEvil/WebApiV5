@@ -14,6 +14,14 @@ namespace WebApiV5.Models
     
     public partial class Users
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Users()
+        {
+            this.SignUps = new HashSet<SignUps>();
+            this.Roles = new HashSet<Roles>();
+            this.Treniruotes = new HashSet<Treniruotes>();
+        }
+    
         public int Id { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
@@ -25,5 +33,12 @@ namespace WebApiV5.Models
         public bool IsEmailVerified { get; set; }
         public System.Guid ActivationCode { get; set; }
         public Nullable<int> Subscriptions { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SignUps> SignUps { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Roles> Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Treniruotes> Treniruotes { get; set; }
     }
 }

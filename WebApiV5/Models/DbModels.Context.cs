@@ -25,9 +25,9 @@ namespace WebApiV5.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<SignUps> SignUps { get; set; }
-        public virtual DbSet<Treniruotes> Treniruotes { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Treniruotes> Treniruotes { get; set; }
     }
 }

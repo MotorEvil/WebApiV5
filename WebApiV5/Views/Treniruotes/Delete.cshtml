@@ -1,0 +1,56 @@
+﻿@model WebApiV5.Models.Treniruotes
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Treniruotes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FreeSpaces)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FreeSpaces)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Joins)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Joins)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

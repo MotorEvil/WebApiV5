@@ -17,5 +17,8 @@ namespace WebApiV5.Models
         public int Id { get; set; }
         public Nullable<int> TreniruotesId { get; set; }
         public Nullable<int> UserId { get; set; }
+    
+        public virtual Users Users { get; set; }
+        public virtual Treniruotes Treniruotes { get; set; }
     }
 }

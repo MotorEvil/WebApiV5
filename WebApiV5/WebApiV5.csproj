@@ -132,6 +132,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegisterAndLoginController.cs" />
+    <Compile Include="Controllers\TreniruotesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -151,6 +152,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Extended\Treniruotes.cs" />
     <Compile Include="Models\Extended\Users.cs" />
     <Compile Include="Models\Roles.cs">
       <DependentUpon>DbModels.tt</DependentUpon>
@@ -165,6 +167,7 @@
       <DependentUpon>DbModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\AcountViewModels.cs" />
+    <Compile Include="Models\ViewModels\TreniruotesViewModel.cs" />
     <Compile Include="Models\ViewModels\UsersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -337,6 +340,10 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Treniruotes\Index.cshtml" />
+    <Content Include="Views\Treniruotes\Create.cshtml" />
+    <Content Include="Views\Treniruotes\Edit.cshtml" />
+    <Content Include="Views\Treniruotes\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

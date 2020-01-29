@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebApiV5.Models.Treniruotes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Treniruociu sarasas</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-outline-info" })
+</p>
+<table class="table table-hover table-responsive">
+    <tr class="table-active">
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FreeSpaces)/
+            @Html.DisplayNameFor(model => model.Joins)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TName)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FreeSpaces)/
+            @Html.DisplayFor(modelItem => item.Joins)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-outline-info" })
+            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-outline-info" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-outline-info" })
+        </td>
+    </tr>
+}
+
+</table>

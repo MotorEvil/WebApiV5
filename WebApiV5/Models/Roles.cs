@@ -15,7 +15,9 @@ namespace WebApiV5.Models
     public partial class Roles
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
+        public Nullable<int> UserId { get; set; }
         public string RoleName { get; set; }
+    
+        public virtual Users Users { get; set; }
     }
 }

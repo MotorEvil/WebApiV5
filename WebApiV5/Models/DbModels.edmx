@@ -10,8 +10,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="RoleName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SignUps">
           <Key>
@@ -25,11 +25,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UsersId" Type="int" />
-          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
           <Property Name="FreeSpaces" Type="int" Nullable="false" />
-          <Property Name="Joins" Type="int" Nullable="false" />
+          <Property Name="Joins" Type="int" />
           <Property Name="TName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
@@ -48,24 +48,80 @@
           <Property Name="ActivationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Subscriptions" Type="int" />
         </EntityType>
+        <Association Name="FK_Roles_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Roles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignUps_Treniruotes">
+          <End Role="Treniruotes" Type="Self.Treniruotes" Multiplicity="0..1" />
+          <End Role="SignUps" Type="Self.SignUps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treniruotes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SignUps">
+              <PropertyRef Name="TreniruotesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignUps_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="SignUps" Type="Self.SignUps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SignUps">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Treniruotes_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Treniruotes" Type="Self.Treniruotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Treniruotes">
+              <PropertyRef Name="UsersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DuomenuBazeModelStoreContainer">
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SignUps" EntityType="Self.SignUps" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Treniruotes" EntityType="Self.Treniruotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Roles_Users" Association="Self.FK_Roles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignUps_Treniruotes" Association="Self.FK_SignUps_Treniruotes">
+            <End Role="Treniruotes" EntitySet="Treniruotes" />
+            <End Role="SignUps" EntitySet="SignUps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignUps_Users" Association="Self.FK_SignUps_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SignUps" EntitySet="SignUps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Treniruotes_Users" Association="Self.FK_Treniruotes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Treniruotes" EntitySet="Treniruotes" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DuomenuBazeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Roles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="RoleName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="SignUps">
           <Key>
             <PropertyRef Name="Id" />
@@ -73,40 +129,31 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TreniruotesId" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Treniruotes">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="UsersId" Type="Int32" />
-          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FreeSpaces" Type="Int32" Nullable="false" />
-          <Property Name="Joins" Type="Int32" Nullable="false" />
-          <Property Name="TName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="DuomenuBazeModel.FK_SignUps_Users" FromRole="SignUps" ToRole="Users" />
+          <NavigationProperty Name="Treniruotes" Relationship="DuomenuBazeModel.FK_SignUps_Treniruotes" FromRole="SignUps" ToRole="Treniruotes" />
         </EntityType>
         <EntityContainer Name="DuomenuBazeEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="SignUps" EntityType="Self.SignUps" />
-          <EntitySet Name="Treniruotes" EntityType="Self.Treniruotes" />
           <EntitySet Name="Users" EntityType="DuomenuBazeModel.Users" />
-          <AssociationSet Name="TreniruotesUsers" Association="DuomenuBazeModel.TreniruotesUsers">
-            <End Role="Treniruotes" EntitySet="Treniruotes" />
+          <AssociationSet Name="FK_SignUps_Users" Association="DuomenuBazeModel.FK_SignUps_Users">
             <End Role="Users" EntitySet="Users" />
+            <End Role="SignUps" EntitySet="SignUps" />
           </AssociationSet>
-          <AssociationSet Name="RolesUsers" Association="DuomenuBazeModel.RolesUsers">
+          <EntitySet Name="Roles" EntityType="DuomenuBazeModel.Roles" />
+          <AssociationSet Name="FK_Roles_Users" Association="DuomenuBazeModel.FK_Roles_Users">
+            <End Role="Users" EntitySet="Users" />
             <End Role="Roles" EntitySet="Roles" />
-            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="TreniruotesSignUps" Association="DuomenuBazeModel.TreniruotesSignUps">
+          <EntitySet Name="Treniruotes" EntityType="DuomenuBazeModel.Treniruotes" />
+          <AssociationSet Name="FK_SignUps_Treniruotes" Association="DuomenuBazeModel.FK_SignUps_Treniruotes">
             <End Role="Treniruotes" EntitySet="Treniruotes" />
             <End Role="SignUps" EntitySet="SignUps" />
           </AssociationSet>
-          <AssociationSet Name="SignUpsUsers" Association="DuomenuBazeModel.SignUpsUsers">
-            <End Role="SignUps" EntitySet="SignUps" />
+          <AssociationSet Name="FK_Treniruotes_Users" Association="DuomenuBazeModel.FK_Treniruotes_Users">
             <End Role="Users" EntitySet="Users" />
+            <End Role="Treniruotes" EntitySet="Treniruotes" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -122,56 +169,92 @@
           <Property Name="IsEmailVerified" Type="Boolean" Nullable="false" />
           <Property Name="ActivationCode" Type="Guid" Nullable="false" />
           <Property Name="Subscriptions" Type="Int32" />
+          <NavigationProperty Name="SignUps" Relationship="DuomenuBazeModel.FK_SignUps_Users" FromRole="Users" ToRole="SignUps" />
+          <NavigationProperty Name="Roles" Relationship="DuomenuBazeModel.FK_Roles_Users" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="Treniruotes" Relationship="DuomenuBazeModel.FK_Treniruotes_Users" FromRole="Users" ToRole="Treniruotes" />
         </EntityType>
-        <Association Name="TreniruotesUsers">
-          <End Type="DuomenuBazeModel.Treniruotes" Role="Treniruotes" Multiplicity="1" />
-          <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="1" />
+        <Association Name="FK_SignUps_Users">
+          <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="DuomenuBazeModel.SignUps" Role="SignUps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SignUps">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="RolesUsers">
-          <End Type="DuomenuBazeModel.Roles" Role="Roles" Multiplicity="1" />
-          <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="1" />
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="DuomenuBazeModel.FK_Roles_Users" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Roles_Users">
+          <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="DuomenuBazeModel.Roles" Role="Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Roles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="TreniruotesSignUps">
-          <End Type="DuomenuBazeModel.Treniruotes" Role="Treniruotes" Multiplicity="1" />
-          <End Type="DuomenuBazeModel.SignUps" Role="SignUps" Multiplicity="1" />
+        <EntityType Name="Treniruotes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsersId" Type="Int32" />
+          <Property Name="Time" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FreeSpaces" Type="Int32" Nullable="false" />
+          <Property Name="Joins" Type="Int32" />
+          <Property Name="TName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SignUps" Relationship="DuomenuBazeModel.FK_SignUps_Treniruotes" FromRole="Treniruotes" ToRole="SignUps" />
+          <NavigationProperty Name="Users" Relationship="DuomenuBazeModel.FK_Treniruotes_Users" FromRole="Treniruotes" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_SignUps_Treniruotes">
+          <End Type="DuomenuBazeModel.Treniruotes" Role="Treniruotes" Multiplicity="0..1" />
+          <End Type="DuomenuBazeModel.SignUps" Role="SignUps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treniruotes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SignUps">
+              <PropertyRef Name="TreniruotesId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="SignUpsUsers">
-          <End Type="DuomenuBazeModel.SignUps" Role="SignUps" Multiplicity="1" />
-          <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="1" />
+        <Association Name="FK_Treniruotes_Users">
+          <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="DuomenuBazeModel.Treniruotes" Role="Treniruotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Treniruotes">
+              <PropertyRef Name="UsersId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DuomenuBazeModelStoreContainer" CdmEntityContainer="DuomenuBazeEntities">
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="DuomenuBazeModel.Roles">
-              <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SignUps">
             <EntityTypeMapping TypeName="DuomenuBazeModel.SignUps">
               <MappingFragment StoreEntitySet="SignUps">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TreniruotesId" ColumnName="TreniruotesId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Treniruotes">
-            <EntityTypeMapping TypeName="DuomenuBazeModel.Treniruotes">
-              <MappingFragment StoreEntitySet="Treniruotes">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UsersId" ColumnName="UsersId" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="FreeSpaces" ColumnName="FreeSpaces" />
-                <ScalarProperty Name="Joins" ColumnName="Joins" />
-                <ScalarProperty Name="TName" ColumnName="TName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -188,6 +271,27 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DuomenuBazeModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Treniruotes">
+            <EntityTypeMapping TypeName="DuomenuBazeModel.Treniruotes">
+              <MappingFragment StoreEntitySet="Treniruotes">
+                <ScalarProperty Name="TName" ColumnName="TName" />
+                <ScalarProperty Name="Joins" ColumnName="Joins" />
+                <ScalarProperty Name="FreeSpaces" ColumnName="FreeSpaces" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="UsersId" ColumnName="UsersId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

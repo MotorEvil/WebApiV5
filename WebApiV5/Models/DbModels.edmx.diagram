@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="443794671b2b47da90df86b7c4b0c69f" Name="Diagram1" ZoomLevel="49">
-        <EntityTypeShape EntityType="DuomenuBazeModel.Roles" Width="1.5" PointX="6.5" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="443794671b2b47da90df86b7c4b0c69f" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="DuomenuBazeModel.SignUps" Width="1.5" PointX="1.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DuomenuBazeModel.Treniruotes" Width="1.5" PointX="1.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DuomenuBazeModel.Users" Width="1.5" PointX="4.125" PointY="2.125" />
-        <AssociationConnector Association="DuomenuBazeModel.TreniruotesUsers" />
-        <AssociationConnector Association="DuomenuBazeModel.RolesUsers" />
-        <AssociationConnector Association="DuomenuBazeModel.TreniruotesSignUps" />
-        <AssociationConnector Association="DuomenuBazeModel.SignUpsUsers" />
-      </Diagram>
+        <AssociationConnector Association="DuomenuBazeModel.FK_SignUps_Users" />
+        <EntityTypeShape EntityType="DuomenuBazeModel.Roles" Width="1.5" PointX="6.375" PointY="3.125" />
+        <AssociationConnector Association="DuomenuBazeModel.FK_Roles_Users" />
+        <EntityTypeShape EntityType="DuomenuBazeModel.Treniruotes" Width="1.5" PointX="6.375" PointY="5.75" />
+        <AssociationConnector Association="DuomenuBazeModel.FK_SignUps_Treniruotes" />
+        <AssociationConnector Association="DuomenuBazeModel.FK_Treniruotes_Users" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

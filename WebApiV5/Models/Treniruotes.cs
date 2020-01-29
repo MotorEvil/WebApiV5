@@ -14,11 +14,21 @@ namespace WebApiV5.Models
     
     public partial class Treniruotes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Treniruotes()
+        {
+            this.SignUps = new HashSet<SignUps>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> UsersId { get; set; }
-        public System.DateTime Time { get; set; }
+        public string Time { get; set; }
         public int FreeSpaces { get; set; }
-        public int Joins { get; set; }
+        public Nullable<int> Joins { get; set; }
         public string TName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SignUps> SignUps { get; set; }
+        public virtual Users Users { get; set; }
     }
 }
