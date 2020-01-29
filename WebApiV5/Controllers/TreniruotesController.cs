@@ -11,11 +11,14 @@ using System.Web.Helpers;
 using WebApiV5.Models.ViewModels;
 using WebApiV5.Models;
 
+
 namespace WebApiV5.Controllers
 {
+    
     public class TreniruotesController : Controller
     {
         private DuomenuBazeEntities db = new DuomenuBazeEntities();
+        
         // GET: Treniruotes
         public ActionResult Index()
         {
@@ -114,6 +117,14 @@ namespace WebApiV5.Controllers
             }
             base.Dispose(disposing);
         }
+
+       /*[HttpPost]
+       [ValidateAntiForgeryToken]
+       public ActionResult Join(string join)
+        {
+           
+        }
+*/
     
     }
 }

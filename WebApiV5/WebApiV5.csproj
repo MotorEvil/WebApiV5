@@ -54,6 +54,7 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -167,7 +168,7 @@
       <DependentUpon>DbModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\AcountViewModels.cs" />
-    <Compile Include="Models\ViewModels\TreniruotesViewModel.cs" />
+    <Compile Include="Models\ViewModels\TreniruotesBinding.cs" />
     <Compile Include="Models\ViewModels\UsersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
