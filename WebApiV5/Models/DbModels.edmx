@@ -31,6 +31,7 @@
           <Property Name="FreeSpaces" Type="int" Nullable="false" />
           <Property Name="Joins" Type="int" />
           <Property Name="TName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UsersString" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -216,6 +217,7 @@
           <Property Name="FreeSpaces" Type="Int32" Nullable="false" />
           <Property Name="Joins" Type="Int32" />
           <Property Name="TName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UsersString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SignUps" Relationship="DuomenuBazeModel.FK_SignUps_Treniruotes" FromRole="Treniruotes" ToRole="SignUps" />
           <NavigationProperty Name="Users" Relationship="DuomenuBazeModel.FK_Treniruotes_Users" FromRole="Treniruotes" ToRole="Users" />
         </EntityType>
@@ -287,6 +289,7 @@
           <EntitySetMapping Name="Treniruotes">
             <EntityTypeMapping TypeName="DuomenuBazeModel.Treniruotes">
               <MappingFragment StoreEntitySet="Treniruotes">
+                <ScalarProperty Name="UsersString" ColumnName="UsersString" />
                 <ScalarProperty Name="TName" ColumnName="TName" />
                 <ScalarProperty Name="Joins" ColumnName="Joins" />
                 <ScalarProperty Name="FreeSpaces" ColumnName="FreeSpaces" />

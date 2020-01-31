@@ -10,7 +10,7 @@
         <AssociationConnector Association="DuomenuBazeModel.FK_SignUps_Users" />
         <EntityTypeShape EntityType="DuomenuBazeModel.Roles" Width="1.5" PointX="6.375" PointY="3.125" />
         <AssociationConnector Association="DuomenuBazeModel.FK_Roles_Users" />
-        <EntityTypeShape EntityType="DuomenuBazeModel.Treniruotes" Width="1.5" PointX="6.375" PointY="5.75" />
+        <EntityTypeShape EntityType="DuomenuBazeModel.Treniruotes" Width="1.5" PointX="1" PointY="0.5" />
         <AssociationConnector Association="DuomenuBazeModel.FK_SignUps_Treniruotes" />
         <AssociationConnector Association="DuomenuBazeModel.FK_Treniruotes_Users" />
         </Diagram>

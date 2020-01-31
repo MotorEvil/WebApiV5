@@ -24,26 +24,38 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Time)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FreeSpaces) / 
-            @Html.DisplayFor(modelItem => item.Joins)           
-            <input type="submit" name="join" value="" class="btn btn-danger" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TName)
-        </td>
-        <td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FreeSpaces) /
+                @Html.DisplayFor(modelItem => item.Joins)
+                <button type="submit" onclick="return Join();">Button</button>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TName)
+            </td>
+            <td>
 
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-outline-info" })
-            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-outline-info" })
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-outline-info" })
-        </td>
-    </tr>
-}
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-info" })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-outline-info" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-info" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+@section Scripts {
+    <script type="text/javascript">
+    function Join()
+    { $.ajax({ url: "Join", success: function ()
+    { alert("success"); } }); return false; }
+    </script>
+}
+
+

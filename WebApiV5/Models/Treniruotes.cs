@@ -26,6 +26,7 @@ namespace WebApiV5.Models
         public int FreeSpaces { get; set; }
         public Nullable<int> Joins { get; set; }
         public string TName { get; set; }
+        public string UsersString { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SignUps> SignUps { get; set; }
