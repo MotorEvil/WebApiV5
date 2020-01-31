@@ -119,27 +119,48 @@ namespace WebApiV5.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult Join()
+       /* public ActionResult Join(int id)
         {
-            try
+            if (id == 0)
             {
-                Users user = db.Users.FirstOrDefault();
-                Treniruotes treniruotes = new Treniruotes();
-                treniruotes.UsersString += "" + user.Id.ToString();
-
-                db.Treniruotes.Add(treniruotes);
-                db.SaveChanges();
-
-
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            catch (Exception ex)
+            Treniruotes treniruotes = db.Treniruotes.Find(id);
+            if (treniruotes == null)
             {
-
-                throw ex;
+                return HttpNotFound();
             }
+            return View(treniruotes);
+        }*/
 
+
+
+        [HttpPost]
+        public ActionResult Join(Treniruotes treniruotes)
+        {
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Users user = db.Users.FirstOrDefault();
+                    //Treniruotes treniruotes = new Treniruotes();
+                    treniruotes.UsersString += "" + user.Id.ToString();
+
+                    db.Treniruotes.Add(treniruotes);
+                    db.SaveChanges();
+
+
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+            }
             return RedirectToAction("Index");
+            
+            
         }
     }
 }
