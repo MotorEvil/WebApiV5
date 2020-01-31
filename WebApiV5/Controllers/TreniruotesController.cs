@@ -118,24 +118,28 @@ namespace WebApiV5.Controllers
             base.Dispose(disposing);
         }
 
-        //https://stackoverflow.com/questions/26833065/asp-net-mvc-how-to-call-void-controller-method-without-leaving-the-view
-        //https://stackoverflow.com/questions/15577890/how-to-use-lambda-in-linq-select-statement
 
-        [HttpPost, ActionName("Join")]
-        [ValidateAntiForgeryToken]
-        public void Join()
+        [HttpPost]
+        public ActionResult Join()
         {
-            Users useris = new Users();
-
-            Treniruotes tren = new Treniruotes();
-
-            tren.UsersString += useris.Id.ToString();
-            db.SaveChanges();
-
-            foreach (var item in tren.UsersString)
+            try
             {
-                
+                Users user = db.Users.FirstOrDefault();
+                Treniruotes treniruotes = new Treniruotes();
+                treniruotes.UsersString += "" + user.Id.ToString();
+
+                db.Treniruotes.Add(treniruotes);
+                db.SaveChanges();
+
+
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

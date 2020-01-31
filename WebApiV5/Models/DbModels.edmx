@@ -27,10 +27,10 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UsersId" Type="int" />
-          <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="FreeSpaces" Type="int" Nullable="false" />
+          <Property Name="Time" Type="nvarchar(max)" />
+          <Property Name="FreeSpaces" Type="int" />
           <Property Name="Joins" Type="int" />
-          <Property Name="TName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TName" Type="nvarchar(max)" />
           <Property Name="UsersString" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Users">
@@ -213,10 +213,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UsersId" Type="Int32" />
-          <Property Name="Time" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FreeSpaces" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FreeSpaces" Type="Int32" />
           <Property Name="Joins" Type="Int32" />
-          <Property Name="TName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UsersString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SignUps" Relationship="DuomenuBazeModel.FK_SignUps_Treniruotes" FromRole="Treniruotes" ToRole="SignUps" />
           <NavigationProperty Name="Users" Relationship="DuomenuBazeModel.FK_Treniruotes_Users" FromRole="Treniruotes" ToRole="Users" />

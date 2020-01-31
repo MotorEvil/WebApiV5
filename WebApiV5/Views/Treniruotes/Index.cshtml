@@ -6,55 +6,58 @@
 }
 
 <h2>Treniruociu sarasas</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-outline-info" })
-</p>
-<table class="table table-hover table-responsive">
-    <tr class="table-active">
-        <th>
-            @Html.DisplayNameFor(model => model.Time)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FreeSpaces)/
-            @Html.DisplayNameFor(model => model.Joins)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TName)
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FreeSpaces) /
-                @Html.DisplayFor(modelItem => item.Joins)
-                <button type="submit" onclick="return Join();">Button</button>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TName)
-            </td>
-            <td>
-
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-info" })
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-outline-info" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-info" })
-            </td>
+@using (Html.BeginForm("Join", "Treniruotes", FormMethod.Post))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-outline-info" })
+    </p>
+    <table class="table table-hover table-responsive">
+        <tr class="table-active">
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FreeSpaces)/
+                @Html.DisplayNameFor(model => model.Joins)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TName)
+            </th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FreeSpaces) /
+                    @Html.DisplayFor(modelItem => item.Joins)
+                    <input type="submit" name="Join" value="Join" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TName)
+                </td>
+                <td>
 
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-info" })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-outline-info" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-info" })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
 
 @section Scripts {
     <script type="text/javascript">
-    function Join()
-    { $.ajax({ url: "Join", success: function ()
-    { alert("success"); } }); return false; }
+        function Join() {
+            $.ajax({
+                url: "Join", success: function () { alert("success"); }
+            }); return false;
+        }
     </script>
 }
 

@@ -23,7 +23,7 @@ namespace WebApiV5.Models
         public int Id { get; set; }
         public Nullable<int> UsersId { get; set; }
         public string Time { get; set; }
-        public int FreeSpaces { get; set; }
+        public Nullable<int> FreeSpaces { get; set; }
         public Nullable<int> Joins { get; set; }
         public string TName { get; set; }
         public string UsersString { get; set; }
