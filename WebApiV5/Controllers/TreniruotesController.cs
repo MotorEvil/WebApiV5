@@ -123,32 +123,16 @@ namespace WebApiV5.Controllers
 
         [Authorize]
         [HttpPost, ActionName("Join")]
-        public ActionResult Join(TreniruotesString model)
+        public ActionResult Join_Click(TreniruotesString treniruotesString)
         {
+            Treniruotes treniruote = db.Treniruotes.FirstOrDefault();
+            Users user = db.Users.FirstOrDefault();
+            TreniruotesString tstring = new TreniruotesString();
+            tstring.Join_Click(treniruotesString);
 
-            if (ModelState.IsValid)
-            {
-                using(DuomenuBazeEntities db = new DuomenuBazeEntities()) 
-                { 
-                    var user = db.Users.Where(a => a.Id == model.UserId).FirstOrDefault();
-                    if (user != null)
-                    {
-
-                        Treniruotes treniruotes = db.Treniruotes.FirstOrDefault();
-                        //Treniruotes treniruotes = new Treniruotes();
-                        treniruotes.UsersString += "," + user.Id.ToString();
-                        treniruotes.Joins = treniruotes.Joins + 1;
-
-                        db.Treniruotes.Add(treniruotes);
-                        db.SaveChanges();
-                    }
-                }
-            }
-            else
-            {
-                
-            }
             return View("Index");
+            
         }
     }
+    
 }
