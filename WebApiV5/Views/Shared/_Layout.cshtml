@@ -15,10 +15,9 @@
         <nav class="collapse navbar-collapse" id="navbarColor02">
             <div class="container">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Treniruotes", "Index", "Treniruotes", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Pagrindinis", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Kontaktai", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Treniruotės", "Index", "Treniruotes", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Klientai", "UsersList", "Users", null, new { @class = "nav-link" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -30,7 +29,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Žydrūnas Grabauskas ASP.NET Application</p>
         </footer>
     </div>
 

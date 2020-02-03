@@ -119,48 +119,36 @@ namespace WebApiV5.Controllers
         }
 
 
-       /* public ActionResult Join(int id)
-        {
-            if (id == 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Treniruotes treniruotes = db.Treniruotes.Find(id);
-            if (treniruotes == null)
-            {
-                return HttpNotFound();
-            }
-            return View(treniruotes);
-        }*/
 
 
-
-        [HttpPost]
-        public ActionResult Join(Treniruotes treniruotes)
+        [Authorize]
+        [HttpPost, ActionName("Join")]
+        public ActionResult Join(TreniruotesString model)
         {
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    Users user = db.Users.FirstOrDefault();
-                    //Treniruotes treniruotes = new Treniruotes();
-                    treniruotes.UsersString += "" + user.Id.ToString();
+                using(DuomenuBazeEntities db = new DuomenuBazeEntities()) 
+                { 
+                    var user = db.Users.Where(a => a.Id == model.UserId).FirstOrDefault();
+                    if (user != null)
+                    {
 
-                    db.Treniruotes.Add(treniruotes);
-                    db.SaveChanges();
+                        Treniruotes treniruotes = db.Treniruotes.FirstOrDefault();
+                        //Treniruotes treniruotes = new Treniruotes();
+                        treniruotes.UsersString += "," + user.Id.ToString();
+                        treniruotes.Joins = treniruotes.Joins + 1;
 
-
-                }
-                catch (Exception ex)
-                {
-
-                    throw ex;
+                        db.Treniruotes.Add(treniruotes);
+                        db.SaveChanges();
+                    }
                 }
             }
-            return RedirectToAction("Index");
-            
-            
+            else
+            {
+                
+            }
+            return View("Index");
         }
     }
 }

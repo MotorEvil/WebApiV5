@@ -48,6 +48,7 @@
           <Property Name="IsEmailVerified" Type="bit" Nullable="false" />
           <Property Name="ActivationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Subscriptions" Type="int" />
+          <Property Name="ResetPasswordCode" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_Roles_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
@@ -173,6 +174,7 @@
           <NavigationProperty Name="SignUps" Relationship="DuomenuBazeModel.FK_SignUps_Users" FromRole="Users" ToRole="SignUps" />
           <NavigationProperty Name="Roles" Relationship="DuomenuBazeModel.FK_Roles_Users" FromRole="Users" ToRole="Roles" />
           <NavigationProperty Name="Treniruotes" Relationship="DuomenuBazeModel.FK_Treniruotes_Users" FromRole="Users" ToRole="Treniruotes" />
+          <Property Name="ResetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_SignUps_Users">
           <End Type="DuomenuBazeModel.Users" Role="Users" Multiplicity="0..1" />
@@ -263,6 +265,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DuomenuBazeModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
                 <ScalarProperty Name="Subscriptions" ColumnName="Subscriptions" />
                 <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
                 <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using WebApiV5.Models;
 using System.Web.Security;
 using WebApiV5.Models.ViewModels;
+using RegistrationAndLogin.Models;
 
 namespace WebApiV5.Controllers
 {
@@ -68,7 +69,7 @@ namespace WebApiV5.Controllers
                     db.SaveChanges();
 
                     //Send email to user
-                    SendeVertificationEmail(user.Email, user.ActivationCode.ToString());
+                    SendeVerificationEmail(user.Email, user.ActivationCode.ToString());
                     message = "Jūs užsiregistravote sėkmingai. Aktyvacijos nuoroda buvo išsiųstas jūsų paštu:" +
                         user.Email;
                     Status = true;
@@ -131,7 +132,7 @@ namespace WebApiV5.Controllers
                 {
                     if (!v.IsEmailVerified)
                     {
-                        ViewBag.Message = "Please verify your email first";
+                        ViewBag.Message = "Prašome patvirtinti slaptažodį";
                         return View();
                     }
 
@@ -157,12 +158,12 @@ namespace WebApiV5.Controllers
                     }
                     else
                     {
-                        message = "Invalid credential provided";
+                        message = "Neteisingi duomenys";
                     }
                 }
                 else
                 {
-                    message = "Invalid credential provided";
+                    message = "Neteisingi duomenys";
                 }
             }
             ViewBag.Message = message;
@@ -190,19 +191,32 @@ namespace WebApiV5.Controllers
         }
 
         [NonAction]
-        public void SendeVertificationEmail(string email, string activationCode)
+        public void SendeVerificationEmail(string email, string activationCode, string emailFor = "VerifyAccount")
         {
-            var verifyUrl = "/RegisterAndLogin/VerifyAccount/" + activationCode;
+            var verifyUrl = "/RegisterAndLogin/" + emailFor + "/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
             var fromEmail = new MailAddress("zydrunas.testing.codes@gmail.com", "Žydrūnas Grabauskas");
             var toEmail = new MailAddress(email);
             var fromEmailPassword = "ManoNaujasSlaptazodis2020";
-            string subject = "Jūsų paskyra sėkmingai sukurta!";
 
-            string body = "<br/><br/>Jūsų profilis sėkmingai sukurtas." +
-                " Prašome paspausti nuorodą apačioje, kad galėtumėte jį aktyvuoti" +
-                " <br/><br/><a href='" + link + "'>" + link + "</a> ";
+            string subject = "";
+            string body = "";
+
+            if (emailFor == "VerifyAccount")
+            {
+                subject = "Jūsų paskyra sėkmingai sukurta!";
+                body = "<br/><br/>Jūsų profilis sėkmingai sukurtas." +
+                    " Prašome paspausti nuorodą apačioje, kad galėtumėte jį aktyvuoti" +
+                    " <br/><br/><a href='" + link + "'>" + link + "</a> ";
+            }
+            else if (emailFor == "ResetPassword")
+            {
+                subject = "Reset Password";
+                body = "Hi,<br/>We got request for reset your account password. Please click on the below link to reset your password" +
+                    "<br/><br/><a href=" + link + ">Reset Password link</a>";
+            }
+            
 
             var smtp = new SmtpClient
             {
@@ -224,5 +238,99 @@ namespace WebApiV5.Controllers
                 smtp.Send(message);
 
         }
+
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(string email)
+        {
+            
+            string message = "";
+            //bool status = false;
+
+            using (DuomenuBazeEntities db = new DuomenuBazeEntities())
+            {
+                var account = db.Users.Where(a => a.Email == email).FirstOrDefault();
+                if (account != null)
+                {
+                    //Send email for reset password
+                    string resetCode = Guid.NewGuid().ToString();
+                    SendeVerificationEmail(account.Email, resetCode, "ResetPassword");
+                    account.ResetPasswordCode = resetCode;
+
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    db.SaveChanges();
+                    message = "Reset password link has been sent to your email id.";
+                }
+                else
+                {
+                    message = "Account not found";
+                }
+            }
+            ViewBag.Message = message;
+            return View();
+        }
+
+        public ActionResult ResetPassword(string id)
+        {
+            
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return HttpNotFound();
+            }
+
+            using (DuomenuBazeEntities dc = new DuomenuBazeEntities())
+            {
+                var user = dc.Users.Where(a => a.ResetPasswordCode == id).FirstOrDefault();
+                if (user != null)
+                {
+                    ResetPasswordModel model = new ResetPasswordModel();
+                    model.ResetCode = id;
+                    return View(model);
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            var message = "";
+            if (ModelState.IsValid)
+            {
+                using (DuomenuBazeEntities db = new DuomenuBazeEntities())
+                {
+                    var user = db.Users.Where(a => a.ResetPasswordCode == model.ResetCode).FirstOrDefault();
+                    if (user != null)
+                    {
+                        user.Password = Crypto.Hash(model.NewPassword);
+                        user.ResetPasswordCode = "";
+                        db.Configuration.ValidateOnSaveEnabled = false;
+                        db.SaveChanges();
+                        message = "New password updated successfully";
+                    }
+                }
+            }
+            else
+            {
+                message = "Something invalid";
+            }
+            ViewBag.Message = message;
+            return View(model);
+        }
+
+
+
+
+
     }
 }

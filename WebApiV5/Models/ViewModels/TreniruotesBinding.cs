@@ -10,7 +10,10 @@ namespace WebApiV5.Models
    public class TreniruotesString : DuomenuBazeEntities
     {
        
-        public string UsersString { get; set; }
+        public string TString { get; set; }
+
+        public int UserId { get; set; }
+
     }
 
    

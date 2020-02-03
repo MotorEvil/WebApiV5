@@ -35,11 +35,12 @@ namespace WebApiV5.Models.ViewModels
     }
     public class UserLogin
     {
-        [Display(Name = "El-pastas")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Reikalingas El-pastas")]
+        [Display(Name = "El-paštas")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Reikalingas El-paštas")]
         public string Email { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Reikalingas Slaptazodis")]
+        [Display(Name = "Slaptažodis")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Reikalingas Slaptažodis")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

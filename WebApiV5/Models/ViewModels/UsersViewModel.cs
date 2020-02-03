@@ -46,6 +46,7 @@ namespace WebApiV5.Models.ViewModels
         [Display(Name = "Abonimento likutis")]
         public Nullable<int> Subscriptions { get; set; }
 
+        [Display(Name = "Ar el-paštas patvirtintas?")]
         public bool IsEmailVerified { get; set; }
         public System.Guid ActivationCode { get; set; }
     }
@@ -88,6 +89,7 @@ namespace WebApiV5.Models.ViewModels
         [Display(Name = "Abonimento likutis")]
         public Nullable<int> Subscriptions { get; set; }
 
+        [Display(Name = "Ar el-paštas patvirtintas?")]
         public bool IsEmailVerified { get; set; }
         public System.Guid ActivationCode { get; set; }
     }

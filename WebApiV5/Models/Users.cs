@@ -33,6 +33,7 @@ namespace WebApiV5.Models
         public bool IsEmailVerified { get; set; }
         public System.Guid ActivationCode { get; set; }
         public Nullable<int> Subscriptions { get; set; }
+        public string ResetPasswordCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SignUps> SignUps { get; set; }

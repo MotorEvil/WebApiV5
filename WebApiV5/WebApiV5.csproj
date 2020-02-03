@@ -168,6 +168,7 @@
       <DependentUpon>DbModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\AcountViewModels.cs" />
+    <Compile Include="Models\ViewModels\ResetPassword.cs" />
     <Compile Include="Models\ViewModels\TreniruotesBinding.cs" />
     <Compile Include="Models\ViewModels\UsersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -186,6 +187,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\facebook.png" />
+    <Content Include="img\instagram.png" />
+    <Content Include="img\linkedin.png" />
     <Content Include="Models\DbModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DbModels.Context.cs</LastGenOutput>
@@ -345,6 +349,8 @@
     <Content Include="Views\Treniruotes\Create.cshtml" />
     <Content Include="Views\Treniruotes\Edit.cshtml" />
     <Content Include="Views\Treniruotes\Delete.cshtml" />
+    <Content Include="Views\RegisterAndLogin\ForgotPassword.cshtml" />
+    <Content Include="Views\RegisterAndLogin\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -358,7 +364,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Default\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

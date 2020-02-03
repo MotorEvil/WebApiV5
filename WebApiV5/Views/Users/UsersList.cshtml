@@ -7,8 +7,9 @@
 <h2>Vartotojų sarašas</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-outline-info" })
+    @Html.ActionLink("Kūrti naują", "Create", null, new { @class = "btn btn-outline-info" })
 </p>
+
 <table class="table table-hover table-responsive">
     <tr class="table-active">
         <th >
@@ -43,8 +44,8 @@
         </td>
         <td>
             @Html.ActionLink("Tvarkyti abonimentą", "Edit", new { id=item.Id }, new { @class = "btn btn-outline-info" })
-            @Html.ActionLink("Detalesnis aprašymas", "Details", new { id=item.Id }, new { @class = "btn btn-outline-info" })
-            @Html.ActionLink("Ištrinti", "Delete", new { id=item.Id }, new { @class = "btn btn-outline-info" })
+            @Html.ActionLink("Detalesnis aprašymas", "Details", new { id=item.Id }, new { @class = "btn btn-outline-success" })
+            @Html.ActionLink("Ištrinti", "Delete", new { id=item.Id }, new { @class = "btn btn-outline-danger" })
         </td>
     </tr>
 }

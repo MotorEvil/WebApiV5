@@ -16,10 +16,10 @@ namespace WebApiV5.Models
         [Display(Name = "Laikas")]
         public string Time { get; set; }
 
-        [Display(Name = "Vietu skaicius")]
+        [Display(Name = "Vietų skaičius")]
         public int FreeSpaces { get; set; }
 
-        [Display(Name = "Prisijunge")]
+        [Display(Name = "Prisijungusių narių skaičius")]
         public int Joins { get; set; }
 
         [Display(Name = "Pavadinimas")]
