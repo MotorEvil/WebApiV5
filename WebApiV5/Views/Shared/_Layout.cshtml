@@ -18,7 +18,11 @@
                     <li class="nav-item">@Html.ActionLink("Pagrindinis", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Kontaktai", "Contact", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Treniruotės", "Index", "Treniruotes", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Klientai", "UsersList", "Users", null, new { @class = "nav-link" })</li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Klientai", "UsersList", "Users", null, new { @class = "nav-link" })</li>
+
+                        }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

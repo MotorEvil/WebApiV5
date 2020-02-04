@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -33,7 +32,8 @@ namespace WebApiV5.Controllers
                 Email = model.Email,
                 ConfirmPassword = model.ConfirmPassword,
                 ActivationCode = model.ActivationCode,
-                IsEmailVerified = model.IsEmailVerified
+                IsEmailVerified = model.IsEmailVerified,
+                Role = model.Role
             };
             bool Status = false;
             string message = "";

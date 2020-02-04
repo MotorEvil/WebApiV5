@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
@@ -32,6 +29,8 @@ namespace WebApiV5.Models.ViewModels
 
         public bool IsEmailVerified { get; set; }
         public System.Guid ActivationCode { get; set; }
+
+        public string Role { get; set; } = "Klientas";
     }
     public class UserLogin
     {

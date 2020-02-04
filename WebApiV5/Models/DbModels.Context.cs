@@ -29,5 +29,7 @@ namespace WebApiV5.Models
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Treniruotes> Treniruotes { get; set; }
+
+        public System.Data.Entity.DbSet<WebApiV5.Models.JoinViewModel> JoinViewModels { get; set; }
     }
 }

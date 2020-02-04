@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebApiV5.Models;
 using System.Net;
 using System.Data.Entity;
 using System.Data;
 using System.Net.Mail;
-using System.Web.Helpers;
 using WebApiV5.Models.ViewModels;
 using Crypto = WebApiV5.Models.ViewModels.Crypto;
 
 namespace WebApiV5.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class UsersController : Controller
     {
         private DuomenuBazeEntities db = new DuomenuBazeEntities();
@@ -62,7 +60,8 @@ namespace WebApiV5.Controllers
                 ConfirmPassword = model.ConfirmPassword,
                 ActivationCode = model.ActivationCode,
                 IsEmailVerified = model.IsEmailVerified,
-                Subscriptions = model.Subscriptions
+                Subscriptions = model.Subscriptions,
+                Role = model.Role
             };
             bool Status = false;
             string message = "";
@@ -128,7 +127,7 @@ namespace WebApiV5.Controllers
 
         // POST: Users/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Include ="Id,Subscriptions,UserName,Password,Email,FirstName,LastName,ConfirmPassword,BirthDate,PhoneNumber,IsEmailVerified,ActivationCode")] EditViewModel model)
+        public ActionResult Edit([Bind(Include ="Id,Role,Subscriptions,UserName,Password,Email,FirstName,LastName,ConfirmPassword,BirthDate,PhoneNumber,IsEmailVerified,ActivationCode")] EditViewModel model)
         {
             var user = new Users()
             {  
@@ -143,7 +142,8 @@ namespace WebApiV5.Controllers
                 Subscriptions = model.Subscriptions,
                 UserName = model.UserName,
                 Password = model.Password,
-                Email = model.Email
+                Email = model.Email,
+                Role = model.Role
             };
 
 

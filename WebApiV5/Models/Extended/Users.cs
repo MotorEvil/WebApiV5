@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApiV5.Models
@@ -41,6 +38,8 @@ namespace WebApiV5.Models
 
         [Display(Name = "Abonimento likutis")]
         public Nullable<int> Subscriptions { get; set; }
+
+        public string Role { get; set; }
 
     }
    

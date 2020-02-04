@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using System.Net;
 using System.Data.Entity;
-using System.Data;
-using System.Net.Mail;
-using System.Web.Helpers;
-using WebApiV5.Models.ViewModels;
 using WebApiV5.Models;
 
 
 namespace WebApiV5.Controllers
 {
-    
+    [Authorize(Roles = "Admin")]
     public class TreniruotesController : Controller
     {
         private DuomenuBazeEntities db = new DuomenuBazeEntities();
         
         // GET: Treniruotes
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Treniruotes.ToList());
@@ -118,21 +112,63 @@ namespace WebApiV5.Controllers
             base.Dispose(disposing);
         }
 
-
-
-
-        [Authorize]
-        [HttpPost, ActionName("Join")]
-        public ActionResult Join_Click(TreniruotesString treniruotesString)
+        [Authorize(Roles = "Klientas")]
+        public ActionResult Join(int id)
         {
-            Treniruotes treniruote = db.Treniruotes.FirstOrDefault();
-            Users user = db.Users.FirstOrDefault();
-            TreniruotesString tstring = new TreniruotesString();
-            tstring.Join_Click(treniruotesString);
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Treniruotes treniruotes = db.Treniruotes.Find(id);
+            if (treniruotes == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Join");
+        }
+
+        [Authorize(Roles = "Klientas")]
+        [HttpPost, ActionName("Join")]
+        public ActionResult Join([Bind(Exclude = "USerId,Time,FreeSpace,TName")]JoinViewModel model, [Bind(Exclude = "Subscriptions,UserName,Password,FirstName,LastName,ConfirmPassword,BirthDate,PhoneNumber,IsEmailVerified,ActivationCode")]UserJoinViewModel umodel)
+        {
+            Treniruotes treniruotes = new Treniruotes()
+            {
+                Id = model.Id,
+                UsersString = model.UsersString,
+                Joins = model.Joins
+            };
+
+            Users user = new Users()
+            {
+                Id = umodel.Id,
+                Email = umodel.Email
+
+            };
+
+            if (ModelState.IsValid)
+            {
+                treniruotes.Joins++;
+                treniruotes.UsersString = treniruotes.UsersString + umodel.Id.ToString() + ",";
+
+                db.Entry(treniruotes).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
 
             return View("Index");
-            
         }
+
+        [NonAction]
+        public void UserJoin(UserJoinViewModel model)
+        {
+            Users user = new Users()
+            {
+                Id = model.Id,
+                Email = model.Email
+
+            };
+        }
+
     }
     
 }

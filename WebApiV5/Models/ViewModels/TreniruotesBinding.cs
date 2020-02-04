@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using System.Windows;
 
 namespace WebApiV5.Models
 {
-    public class TreniruotesString : DuomenuBazeEntities
+    public class JoinViewModel
     {
-        DuomenuBazeEntities db = new DuomenuBazeEntities();
-        
-        public int Tid { get; set; }
-        public string TString { get; set; }
-        public int Join { get; set; }
-
-        public int UserId { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        [Key]
+        public int Id { get; set; }
+        public string UsersString{ get; set; }
+        public int Joins { get; set; }
 
 
-        public void Join_Click([Bind(Include = "Tid,TString,Join,UserId")] TreniruotesString treniruotesString)
+
+
+       /* public void Join_Click([Bind(Include = "Tid,TString,Join,UserId")] Treniruotes treniruotes)
         {
             Treniruotes treniruote = new Treniruotes()
             {
@@ -29,14 +23,14 @@ namespace WebApiV5.Models
                 UsersString = treniruotesString.TString
             };
 
-            treniruote = db.Treniruotes.Where(x => x.Id == treniruotesString.Tid).FirstOrDefault();
+            treniruote = db.Treniruotes.SingleOrDefault(x => x.Id == id);
 
             Users user = new Users()
             {
                 Id = treniruotesString.UserId
             };
 
-            user = db.Users.Where(x => x.Id == treniruotesString.UserId).FirstOrDefault();
+            user = db.Users.SingleOrDefault(x => x.Id == id);
 
             treniruote.UsersString = treniruote.UsersString + "," + treniruotesString.UserId.ToString();
             treniruote.Joins++;
@@ -44,8 +38,14 @@ namespace WebApiV5.Models
             db.Entry(treniruote).State = EntityState.Modified;
             db.SaveChanges();
         }
-
+*/
     }
 
-   
+   public class UserJoinViewModel
+    {
+        [HiddenInput(DisplayValue = false)]
+        [Key]
+        public int Id { get; set; }
+        public string Email { get; set; }
+    }
 }

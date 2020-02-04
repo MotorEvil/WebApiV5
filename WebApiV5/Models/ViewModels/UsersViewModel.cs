@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -49,6 +46,8 @@ namespace WebApiV5.Models.ViewModels
         [Display(Name = "Ar el-paštas patvirtintas?")]
         public bool IsEmailVerified { get; set; }
         public System.Guid ActivationCode { get; set; }
+
+        public string Role { get; set; } = "Klientas";
     }
 
     public class EditViewModel
@@ -92,5 +91,8 @@ namespace WebApiV5.Models.ViewModels
         [Display(Name = "Ar el-paštas patvirtintas?")]
         public bool IsEmailVerified { get; set; }
         public System.Guid ActivationCode { get; set; }
+
+        [Display(Name = "Rolė")]
+        public string Role { get; set; } = "Klientas";
     }
 }
