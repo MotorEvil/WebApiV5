@@ -198,7 +198,7 @@ namespace WebApiV5.Controllers
 
             var fromEmail = new MailAddress("zydrunas.testing.codes@gmail.com", "Žydrūnas Grabauskas");
             var toEmail = new MailAddress(email);
-            var fromEmailPassword = "ManoNaujasSlaptazodis2020";
+            var fromEmailPassword = "********";
 
             string subject = "";
             string body = "";
